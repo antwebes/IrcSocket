@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<plugin
+   name = "AFCS SDK (BETA)"
+   id = "com.adobe.afcs.help"
+   version = "1.0"
+   provider-name = "Adobe Systems, Inc. ">
+
+    <extension point="org.eclipse.help.toc">
+        <toc file="book.xml" primary="true" />
+    </extension>
+
+</plugin>

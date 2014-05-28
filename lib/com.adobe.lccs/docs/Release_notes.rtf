@@ -1,0 +1,286 @@
+{\rtf1\ansi\ansicpg1252\deff0{\fonttbl{\f0\fswiss\fcharset0 Helvetica;}{\f1\fswiss\fcharset0 ArialMT;}{\f2\fnil\fcharset0 Calibri;}{\f3\fnil\fcharset0 LucidaGrande;}}
+{\*\generator Msftedit 5.41.15.1515;}\viewkind4\uc1\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\lang1033\f0\fs24 Version 1.3.5\par
+\par
+This release contains some critical user fixes in ScreenSharing,Javascript and DevPortal.\par
+\par
+The fixes are\par
+\par
+1) ScreenSharing Server side fix for publisherIDs\par
+2) ScreenSharing client and example fixes.\par
+3) NetGroup fix for multiple netgroups in 10.1\par
+4) DevPortal charts are unavailable for a few weeks for performance updates.\par
+5) JavaScript SDK bug fixes.\par
+6) JQuery Plugin example added.\par
+\par
+\par
+Version 1.3.0\par
+\par
+This release contains some critical user fixes in Chat and Audio/Video Streams along with features such as RemoteControl.\par
+\par
+The fixes are\par
+\par
+1) SimpleChat History Clearance Bug Fixed\par
+2) Audio and Video Optimization with a lot of Subscribers\par
+3) ScreenShare LocalConnection Fixed and a new warning if Localconnection exists\par
+4) DevPortal Link in SDKApp points to new domain\par
+5) Chat Scrolling Bug Fixed\par
+6) MulticastStream Fixes in 10.1 swc\par
+7) Custom Groups for Streams using NetGroup in 10.1 Fixed\par
+8) P2P Streaming during Playback Fixed\par
+9) CameraUserBar fix for FlashOnly and spark SDK\par
+10) Some ScreenShareFlexExample files for spark component set\par
+\par
+Features\par
+\par
+RemoteControl for ScreenSharing: Remote Control is now available with our ScreenSharing features. Users can request the sharing user for controling of the screen and once accepted, he can control the user's screen. \par
+\pard\sb100\sa100 BatonObject SharedModel: A BatonObject is a model class similar to the BatonProperty, but would be used to provide workflow between multiple users for multiple properties. BatonObject helps to avoid instantiate multiple Batons(CollectionNodes) to control multiple properties.\par
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\par
+Version 1.2.5\par
+\par
+This release is a patch release to our big 1.2.0 release on August 12th.\par
+\par
+This has only critical fixes\par
+\par
+1) LocalConnectionServer Fixed\par
+2) FlashOnly WebcamSubscriber is Fixed\par
+3) ScreenShare Publisher 2-browser RTE is fixed\par
+4) BuddyList fix with CustomUserFields.\par
+5) Cross browser compatibility Fix for SharedCursor in JavaScript SDK\par
+6) RTCModel.java exception on fetchItems is Fixed \par
+7) Some Sample Apps were broken in August release. They have been all fixed and updated with our new namespace.\par
+\par
+This release addresses some of the principal concerns of our users with these fixes and we are happy to turn this patch quickly\par
+\par
+Version 1.2.0\par
+\par
+ Our August release is one of the biggest updates in LCCS history. \par
+\par
+First up, our xmlns for the LCCS swc used to be "AfcsNameSpace". We've made it an official namespace now, which means when you use the new swc (now appropriately named LCCS.swc), you'll need to fix the xmlns (it's "http://ns.adobe.com/rtc"). Apologies for the inconvenience, but it was really starting to bug us!\par
+\par
+We're including 3 big new features for your tests : \par
+\par
+1) SCREEN SHARING. That's right, you'll be able to make applications which include users capturing and broadcasting their screens.\par
+2) JAVASCRIPT INTEGRATION. We're making it easy to add rich collaborative functionality via JS libraries. This feature is currently in public beta, and we're really looking to release this to gather feedback and bugs.\par
+3) RECORDING AND PLAYBACK. Another highly-requested feature. This one is going out as a private beta, which means we're going to allow access to a subset of our users, so they can help us get this to final release quality. Send us an email at lccs@adobe.com with "Recording Beta" in the subject line, and we'll get back to you with the details you need to try it out!\par
+\par
+New Sample Apps to go with the new features : \par
+:: Screenshare Example (4 apps!)\par
+:: ScreenShare FlashOnly example (2 apps!)\par
+:: JavaScriptSample\par
+:: Recording (will only work once we've unlocked the feature for you, see above).\par
+\par
+New Domains!! We're now live at \par
+   Developer portal : https://collaboration.adobelivecycle.com\par
+   Account/Room URLs : https://collaboration.adobelivecycle.com/<Account>/<Room>\par
+ALL EXISTING URLS will of course continue to work.\par
+\par
+New Branding!!! We've finally made the full transition from AFCS/Cocomo to LiveCycle Collaboration Service, including an icy blue new logo and look! All docs and UIs should reflect this, so if you see anything that needs updating, please let us know!\par
+\par
+A new docs home for the Developer Guide - what was formerly just a PDF is now a live Wiki doc at http://learn.adobe.com/wiki/display/lccs/LiveCycle+Collaboration+Service, with much more regular updates. Those of you who love working offline, not to worry, the PDF version is still available in the docs directory of the payload.\par
+\par
+The LocalConnectionServer now accepts registerHook URLs to allow local debugging of server messaging subscriptions - no more need for a public-facing server to debug!\par
+\par
+Bug Fixes : \par
+\par
+Using HTTPS URLs with registerHook for server-to-server APIs was failing.\par
+When you use an authenticationKey, you don't get an authenticationEvent. \par
+When a large selection of whiteboard shapes is moved by a remote user, the infinite script error is fired\par
+Rotated Text in the whiteboard for Flex 4 now works properly\par
+Added the ability to add a bandwidth cap\par
+Fixed the Roster pod for Flex 4\par
+registered body classes failing due to ByteArray position\par
+A critical bug that prevented peer to peer streaming in some conditions have been fixed.\par
+Anonymous Presence was broken with WebCamera pod. Fixed.\par
+Fixes in our various Sample Apps.\par
+Fixes in our Room Console\par
+\par
+What's coming up : \par
+\par
+Screen Control\par
+Recording/Playback full release\par
+Bugfixes to any user issues\par
+\par
+\par
+Version 1.1.1\par
+\par
+  \f1\fs26 Our May release is primarily a bug fixing release, as we consolidate on the features of 1.1 and work hard towards putting new ones in forthcoming months.\par
+\par
+ What's new in this release : \par
+\par
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\tab * Server-to-Server HTTP API Enhancements           \par
+\tab\tab :: C# libraries!\par
+\tab\tab :: A new example for doing Server To Server communication between .NET and LCCS.\f2\fs28\par
+\f1\fs26        \tab :: Fixes to the PHP example.\f0\fs24\par
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\tab * Local Connection Server now handles anonymousPresence and recipientIDs\par
+\tab * \f1\fs26 SDK: A new bandwidth API to WebcamPublisher. Users can set bandwidth cap with this API directly.\par
+\tab * User Defined Bug Fixes :\f2\fs28\par
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\f1\fs26             :: Switching rooms in an Application with Audio Publisher/Subscriber.\f2\fs28\par
+\f1\fs26             :: Byte Array Fix for creating and reading MessageItems from the correct position.\f2\fs28\par
+\f1\fs26             :: Roster UI Fix for Flex 4.\f2\fs28\par
+\f1\fs26             :: Fixes in our various Sample Apps.\f2\fs28\par
+\f1\fs26             :: Fixes in WhiteBoard inside our SDKApp Navigator.\par
+\tab      :: AUTHENTICATION_SUCCESS wasn't getting thrown for users with External Authentication.\f0\fs24\par
+\f1\fs26\tab * Developer Console Updates:\f2\fs28\par
+\f1\fs26             ::  Support for allowing/stopping private streaming in room.\f2\fs28\par
+\f1\fs26             :: Support for changing anonymousPresence in Room and lazySubscription property in NodeConfiguration UI .\f2\fs28\par
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\f0\fs24\par
+\par
+  What's coming up : \par
+\par
+ (See the 1.1 "What's coming up" for more details...)\par
+\par
+\par
+Version 1.1\par
+\par
+ This is a pretty big release, with a few BIG new features, and lots of bug fixes.\par
+\par
+  What's new in this release : \par
+\par
+\tab * Server-to-Server HTTP APIs - Publish and subscribe messages from your own server to ours. See the Developer Guide pdf, the server integration libraries, and new example app folder ("Server2Server"); We're currently rolling this out as a "beta", so you can test functionality and submit feedback - only http works for hook URLs, with https coming very soon. \par
+\tab * A new Flash Player 10.1 library, which includes 2 big new features : \par
+\tab\tab :: P2P Data Messaging\par
+\tab\tab :: Application multicast for A/V\par
+\tab\tab (See the Developer Guide PDF for more info)\par
+\tab * Large room support - UserManager.anonymousPresence can be used to build rooms up to 5000 users, with "lazy-loaded" UserDescriptors.\par
+\tab * Buddy List Presence : used with anonymousPresence, you can specify a list of userIDs for users who want to listen for my arrival and departure with UserManager.myBuddyList.\par
+\tab * Private streams - we've made it much easier to stream to a subset of the room, using AudioPublisher.recipients and WebcamPublisher.recipients\par
+\tab * Send a private message to multiple users with the new MessageItem.recipientIDs.\par
+\tab * We now include the Player 10 library Source code!\par
+\tab * StreamManager.maxP2PStreamPublish can be used to adjust the number of streams allowed for one publisher before switching down to hub-and-spoke.\par
+\tab * AdobeHSAuthenticator.requireRTMFP, when set to true, will only allow RTMFP connections for your users.\par
+\tab * There's no longer any need for protocol="rtmfp" - our whole service now supports RTMFP, so there's no need to ask for it!\par
+\tab * WebCamPublisher.deblocking!\par
+\tab * NodeConfiguration.lazySubscription and CollectionNode.fetchItems (look em up!)\par
+\tab * New Sample Apps : \par
+\tab\tab :: The whole Server2Server directory!\par
+\tab\tab :: PrivateStreamTest\par
+\tab * Fixes : \par
+\tab\tab :: Capturing Bitmaps of P2P streams is now supported. Do make sure to wrap in a try..catch block (it may throw exceptions the very first time you try).\par
+\tab\tab :: The "extra 50" messages on starting up a room have been removed.\par
+\tab\tab :: No more exceptions for AudioPublisher if there is no mic/driver installed\par
+\tab\tab :: UI components now work properly in Flash Builder 4\par
+\tab\tab :: Audio/WebcamPublisher allow publisherIDs=null to listen to no one.\par
+\tab\tab :: customUserFields, when set by an OWNER on someone else, were being applied to the OWNER\par
+\tab\tab :: When logging out or closing with WebCam or AudioPublisher on, you can now log back in without needing to re-instantiate the publisher to allow it to work.\par
+\tab\tab :: Providing SharedWhiteBoard.registerFactory so devs can build their own shape toolbars. \par
+\tab\tab :: Tons more little fixes.\par
+\par
+\par
+ What's Next?\par
+\par
+ :: Recording and Playback\par
+ :: Secret project #1\par
+ :: Secret project #2\par
+\par
+\par
+\par
+Version 1.02\par
+\par
+Another quick point release, we wanted to fix some bugs, improve some examples, and generally respond to feedback from the forums.\par
+\par
+ What's new in this release :\par
+\par
+\tab * Three new client examples to show off the Flash-Only SDK : \par
+\tab\tab :: FlashSimpleChat\par
+\tab\tab :: FlashUserList\par
+\tab\tab :: FlashWebcamExample\par
+\tab * One new server example to show a more real usage of external authentication:\par
+\tab\tab :: ExternalAuthentication/rails with AuthLogic plugin\par
+\tab * Opened up the whiteboard to make it easier to add new shape types (see WhiteBoardCustomShapes)\par
+\tab * Added a deblocking API to WebcamPublisher/WebcamSubscriber\par
+\tab * Added a new trace / logging framework - DebugUtils can be used to turn off debug traces, or route them to your own functions.\par
+\tab * Added WebcamPublisher.resolutionFactor - easier than On2 descriptor stuff.\par
+\tab * Added keepalive method to server integration libraries to keep the authentication token \ldblquote alive\rdblquote  (it expires after around 15 minutes of inactivity so call AccountManager.keepalive() every 10/12 minutes if you want to avoid having to login as administrator for every server-side request)\par
+\tab * Fixes : \par
+\tab\tab :: Webcamera example was a bit borked - fixed\par
+\tab\tab :: Fixed the RoomConsole for Stream names, as well as clearing the storage type when setting nodeconfigs.\par
+\tab\tab :: Fixed the videocomponent when explicit width/height are undefined\par
+\tab\tab :: Fixed Voip in Windows 7\par
+\tab\tab :: Pause in the webcam is now fixed (player 10 broke it)\par
+\tab\tab :: Server integration : the server request for AccountManager.deleteRoom and deleteTemplate was returning the full list of room/templates remaining in the folder, that could be a lengthy operation. Now by default it only return generic information about the folder content. \par
+\par
+\par
+What's next?\par
+\par
+\tab * HTTP APIs\par
+\tab * Larger room support (lobbies!)\par
+\tab * New P2P goodness\par
+\tab * More recording / playback work\par
+\tab\par
+\par
+\par
+Version 1.01\par
+\par
+ Commercial Release!!\par
+\par
+\par
+\par
+Version 0.94\par
+\par
+A quick point-release to fix a few issues that cropped up in Version 0.93 : \par
+\par
+What's new in this release : \par
+\tab * Examples got fixed : \par
+\tab\tab Audio, PeerToPeerRtmfp had an issue with silenceLevel that could cause streaming to drop.\par
+\tab\tab CollabPicViewer was broken (a missing library)\par
+\tab * SharedWhiteBoard's bullets now appear properly when entering text.\par
+\tab * WebcamSubscriber % width and % height for mxml is fixed\par
+\tab * Player 9 and Player 10 swf can talk to each other again - no more RTEs around isPeer\par
+\tab * AudioPublisher's design view\par
+\tab * We shipped with an older version of the server integration code - this has been updated to the latest fixes.\par
+\par
+ Apologies for anyone who encountered issues!\par
+\par
+\par
+\par
+Version 0.93\par
+\par
+We're still primarily focused on e-commerce, but wanted to release another drop with some of the stuff we've been working on. \par
+\par
+What's new in this Release?\par
+\par
+   * A new \b AIR app package for the SDK!\b0  Features:\par
+         * Video Tutorials (updated as we add more)\par
+         * Running sample apps\par
+         * Auto-Update when the SDK changes\par
+         * Consolidation of the Developer Tools (Room Console and Local Connection Server), only 1 app to run now.\par
+         * Improved Navigation of the SDK\par
+         * The introduction of our new \b Logo\b0  \par
+   * A new, \b Flex-free version\b0  of the SWC, Source code, and ASDocs. Run in Flash CS4, or as an ActionScript Project. Total compiled size : \b 55KB\b0 . You won't get any UI, but full connectivity including classes for Data, Audio, Video, and File sharing are supported.\par
+   * A new shared model type : \b SharedObject\b0 . Acts as a simple unordered key-value hash. Helpful in migrating FMS projects, but with permissions and storage features.\par
+   * More work in the \b Developer Guide\b0 , including a Tutorial chapter.\par
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\f2    * A new package \b com.adobe.coreUI.controls.whiteboardClasses.shapeDescriptors\b0  consisting of the following descriptor classes\par
+         * WBArrowShapeDescriptor    -  Descriptor class for a Arrow shape\par
+         * WBEllipseShapeDescriptor    - Descriptor class for Ellipse shape\par
+         * WBHighlightAreaShapeDescriptor    - Descriptor class for HighlightArea Shapes\par
+         * WBLineShapeDescriptor    - Descriptor class for a Line shape\par
+         * WBMarkerShapeDescriptor    - Descriptor class for a Highlighter/Marker pen shape\par
+         * WBRectangleShapeDescriptor    - Descriptor class for Rectangle Shape\par
+         * WBRoundedRectangleShapeDescriptor    - Descriptor class for Rounded Rectangle Shapes\par
+         * WBTextShapeDescriptor    - Descriptor class for a Text-Area Shape \f0\par
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640    * New APIs in the \b WhiteBoardModel\b0  allowing devs programatic access to the WBShapes\par
+   * New \b Example\b0  for manipulating the WhiteBoardModel programmatically. \par
+   * Moved SimpleChatModel to the shared models directory, as it can be used independently of the SimpleChat pod.\par
+   * Fixes to UserManager to ensure CustomUserFields don't get overwritten\par
+   * Fixed SharedProperty.canUserEdit  (was always reporting false)\par
+   * Added SharedProperty.updateInterval. Defaults to 0, meaning updates are sent immediately. Can be used to batch updates.\par
+   * Fixed a bug where the roster would throw an exception on lost connection\par
+   * Fixed a bug where SimpleChatPod would throw an exception when built in Flex 4.\par
+   * File Share pod UI bug fixes (3)\par
+   * Tons of other small bug fixes. \par
+\par
+\par
+What's next? \par
+\par
+    * Working on HTTP/Remoting APIs. \par
+    * More long-term work on e-commerce enablement\par
+    * More responses to your requests!\par
+\par
+\par
+\par
+\par
+\par
+ \par
+\f3\u8201?f0 \par
+}
+ 

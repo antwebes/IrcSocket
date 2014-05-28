@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+	creationComplete="init();">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+
+			import events.ConnectEvent;
+			import events.ConnectedEvent;
+			import events.QueryEvent;
+			import events.RecvMessageEvent;
+			import events.SendMessageEvent;
+
+			import flash.external.ExternalInterface;
+
+			import irc.IRCProtocol;
+
+			private static const CAN_I_HAS_SOCKET:Function = function():Boolean {
+				return true;
+			};
+
+			private var onReceiveCallback : Function = null;
+			private var onConnectCallback : Function = null;
+
+			private function init() : void {
+				Security.allowDomain("localhost");
+				Usr.ircp = new IRCProtocol();
+				addEventListener(ConnectEvent.CONNECT_EVENT_TYPE, onConnectionAttempt);
+
+				try {
+					ExternalInterface.addCallback("connect", connect);
+					ExternalInterface.addCallback("close", close);
+					ExternalInterface.addCallback("write", write);
+					ExternalInterface.addCallback("onreceive", onReceive);
+					ExternalInterface.addCallback("CAN_I_HAS_SOCKET", CAN_I_HAS_SOCKET);
+					ExternalInterface.call(
+					["(function(){", 
+						"if (window.IRCSocket) return;",
+						 "var Class = function(properties){", 
+						 	"var klass = function(event_handlers){ ", 
+						 		"for (var p in event_handlers) {", 
+						 			"if (event_handlers.hasOwnProperty(p)) {", 
+						 				"this[p] = event_handlers[p];", 
+						 			"}", 
+						 		"}", 
+						 		"return this.init.apply(this);", 
+						 	"};", 
+						 	"klass.prototype = properties;", 
+						 	"klass.constructor = arguments.callee;", 
+						 	"return klass;", 
+						 "};", 
+						 "window.IRCSocket = new Class({", 
+						 	"init: function(){", 
+						 		"this._instance = ''+window.IRCSocket._instances.length;", 
+						 		"window.IRCSocket._instances.push(this);", 
+								"window.IRCSocket.current = this;",
+						 	"},", 
+						 	"close: function(){ ", 
+						 		"window.IRCSocket._instances[this._instance] = null;", 
+						 		"window.IRCSocket._bridge.close();", 
+						 	"},", 
+						 	"write: function(data){ ", 
+						 		"window.IRCSocket._bridge.write(data);", 
+						 	"},", 
+						 	"connect: function(host, port) {", 
+						 		"window.IRCSocket._bridge.connect(host, port);", 
+						 	"}", 
+						 "});", 
+						 "window.IRCSocket._instances = [];", 
+						 "var f = function(tag){", 
+						 	"var elems = document.getElementsByTagName(tag);", 
+						 	"for (var i=0; i<elems.length; i++) if (elems[i].CAN_I_HAS_SOCKET)return elems[i];", 
+						 "};", 
+						 "window.IRCSocket._bridge = f('embed') || f('object');", 
+					"})"].join(''));
+				} catch(err : Error) {
+					trace(err.toString());
+				}
+			}
+
+			public function connect(host : String, port : Number) : void {
+				// Create a new event to send off
+				var ce : ConnectEvent = new ConnectEvent(host, port);
+
+				// Send off the event to listeners
+				dispatchEvent(ce);
+			}
+
+			public function close() : void {
+				Usr.ircp.close();
+			}
+
+			public function write(output : String) : void {
+				ExternalInterface.call('alert', output);
+				Usr.ircp.WriteRawMessage(output);
+			}
+
+			public function onReceive(onReceiveCallback : Function) : void {
+				this.onReceiveCallback = onReceiveCallback;
+			}
+
+			/**
+			 * Called when a connection is establisted with the remote server
+			 */
+			private function onConnect(event : Event) : void {
+				ExternalInterface.call(
+				["(function(){",
+					"window.IRCSocket.current.onConnected();",
+				"})"].join(''));
+			}
+
+			/**
+			 * Event handler:  Called whenever new data is available in the
+			 * socket.  Based on the state of the protocol, execute the
+			 * appropriate function to handle the data coming in.
+			 */
+			private function onSocketData(pe : ProgressEvent) : void {
+				Usr.ircp.ReadMessage();
+			}
+
+			public function onConnectionAttempt(ce : ConnectEvent) : void {
+				Usr.ircp.addEventListener(Event.CONNECT, onConnect);
+				Usr.ircp.addEventListener(ProgressEvent.SOCKET_DATA, onSocketData);
+				Usr.ircp.addEventListener(RecvMessageEvent.RECV_MESS_EVENT_TYPE, onMessageRecv);
+				Usr.ircp.connect(ce.Host, ce.Port);
+			}
+
+			private function onMessageRecv(me : RecvMessageEvent) : void {
+				ExternalInterface.call(
+				["(function(data){",
+					"window.IRCSocket.current.onReceive(data);",
+				"})"].join(''), me.input);
+			}
+		]]>
+	</mx:Script>
+</mx:Application>

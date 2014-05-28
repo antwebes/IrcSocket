@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="AFCS SDK (BETA)"  topic="docs/index.html">
+    <topic label="Release Notes" href="docs/Release_notes.rtf"/>
+    <topic label="Developer Guide" href="docs/AFCS_Developer_Guide.pdf" target="blank"/>
+    <topic label="AFCS API Reference" href="docs/asdocs/index.html"/>
+    <topic label="AFCS Libraries (SWCs)" href="libs/readme.html"/>
+    <topic label="RTC Sample Applications" href="sampleApps/readme.html"/>
+    <topic label="Server Integration Scripts" href="serverIntegration/readme.html"/>
+</toc>

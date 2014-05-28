@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:rtc="http://ns.adobe.com/rtc">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<rtc:AdobeHSAuthenticator id="auth"  userName="Your Username" password="Your password" />
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			/**********************************************************
+			 * ADOBE SYSTEMS INCORPORATED
+			 * Copyright 2010 Adobe Systems Incorporated
+			 * All Rights Reserved.
+			 * NOTICE: Adobe permits you to use, modify, and distribute this file in accordance with the 
+			 * terms of the Adobe license agreement accompanying it.If you have received this file from a 
+			 * source other than Adobe, then your use, modification, or distribution of it requires the prior 
+			 * written permission of Adobe.
+			 * *********************************/
+			
+			import com.adobe.rtc.session.managers.SessionManagerPlayback;
+			import mx.utils.Base64Encoder;
+			import com.adobe.rtc.core.session_internal ;
+			import com.adobe.rtc.archive.ArchiveManager ;
+			
+			private function onBtnClick():void
+			{
+				cSession.archiveManager.recordSession = record.selected ;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<rtc:ConnectSessionContainer id="cSession" authenticator="{auth}" width="100%" height="100%" 
+									 roomURL="Your RoomUrl" >
+		<mx:HBox top="10" right="10" left="10" bottom="10" verticalGap="6" horizontalAlign="center">
+			<mx:VBox width="100%" height="100%" >
+				<rtc:SharedWhiteBoard id="swb" width="100%" height="100%" />
+				<rtc:WebCamera id="myCamera" width="200" height="200" />
+				<rtc:Note id="simpleNote" width="100%" height="100%" />
+				<mx:Button id="record" label="record" click="onBtnClick()" toggle="true" height="30"   />
+			</mx:VBox>
+		</mx:HBox>
+	</rtc:ConnectSessionContainer>  
+</s:Application>

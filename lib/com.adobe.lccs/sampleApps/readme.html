@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Real Time Collaboration Example Applications</title>
+<style>
+body {
+	font-family: verdana, arial, helvetica, sans serif; 
+	font-size: 12px;
+	margin: 50px, 150px, 0px, 50px;
+	}
+li {
+	line-height: 17px;
+	margin-top: 7px;
+	list-style: square;
+	}
+div {
+	background-color: #f5f5f5;
+	padding: 20px;
+	width: 750px;
+	margin: 20px;
+	}
+</style>
+</head>
+
+<body>
+<!--<img src="../docs/html/LCCS.png" width="325" height="48" alt=""> -->
+
+<div>
+<h1>Example Applications</h1>
+
+The SDK delivers a few sample applications that provide working code you can 
+install and run. Some of these demos are rudimentary and focus on a particular 
+technique rather than a rich user interface. Others are more complete and may 
+prove useful for your own applications. 
+<p>
+</p>
+All of the samples exist in the <code>sampleApps</code> directory under the root 
+SDK install location:  
+<ul>
+	<li><strong>Audio</strong>: Uses an audio publisher and subscriber and shows to change various audio settings such as gain, silenceLevel, echoSuppression, and so on via AudioPublisher properties. All users other than the person running the demo can hear the published audio.</li>
+	<li><strong>CollabpicViewer</strong>: This example shows how multiple users can view synchronized images. </li>
+	<li><strong>ComplexObjectTransfer</strong>: Demonstrates the use of the <code>registerBodyClass</code> method in <code>MessageItem</code> for passing items containing complex objects over the LCCS service. </li>
+	<li><strong>CustomField</strong>: This example shows how you can use custom fields in UserDescriptor with the a DataGrid(List). This also shows API's for creating/deleting custom fields.</li>
+	<li><strong>CustomRoster</strong>: This example demonstrates how to use UserManager and UserRoles to promote, demote, and remove people by calling various UserManager API's and listening to its events to make user interface changes. </li>
+	<li><strong>DefaultPods</strong>: A simple first application demonstrating the use of the default pods as well as basic authentication and session creation.</li>
+	<li><strong>ExternalAuthentication</strong>: Provides an example framework for authenticating users on your own system. Users enter credentials known to your organization rather than an Adobe ID. While the SDK provides examples in Flex, Java, and PHP, you can use the language of your choice.</li>
+	<li><strong>FilePublisher</strong>: Shows how to upload, download, delete, and display files via LCCS's FileManager API, FilePublisher, and FileSubscriber components.</li>
+	<li><strong>FlashSimpleChat</strong>: Simple flash chat client without heavy Flex components.</li>
+	<li><strong>FlashUserList</strong>: Simple flash client shows user list in a room without heavy Flex components.</li>
+	<li><strong>FlashWebCamExample</strong>: Simple flash client shows webcam in action without heavy Flex components.</li>
+    <li><strong>JavaScriptSample</strong>: JavaScript sample demonstrates how Webapps implemented in HTML and JavaScript can communicate with LCCS and incorporate collaboration in their apps.</li>
+	<li><strong>JQueryPluginExample</strong>: Simple JQuery LCCS plugin that demonstrates form co-navigation</li>
+	<li><strong>KnockingQueue</strong>: Demonstrates the use of a knocking queue. When a user or users arrive at a room whose 
+state is knocking (guestsHaveToKnock = true in RoomManager), and the host is there, the users are placed in a pending queue. The host sees the pending, accepted, denied queue and a chat window. Once a user is accepted, they see a chat; if they are not accepted, they see a blank screen.If the host hasn't arrived yet, he will see a blank screen.</li>
+	<li><strong>LocalConnection</strong>: A simple white board application that shows how to connect to the local server tool included in the extras directory. LocalConnectionServer.air allows offline development and testing of non-streaming components.</li>
+	<li><strong>LoginDialog</strong>: A user interface showing login mechanism that allows you to log in as a member or guest.</li>
+	<li><strong>MulticastTest</strong>: The example shows how you can use multicasting to publish multiple P2P A/V Streams. You need to enable multicast in StreamManager to use this feature. (This is only applicable with Player 10.1 swc) </li>
+    <li><strong>MultipleGroups</strong>: Demonstrates how to use multiple pod groups such as camera, chat, and note within a room. Grouping is useful for building applications that support private chats, private groups, etc. and where users can be divided into groups each of which see a different user interface.</li>
+	<li><strong>MultipleSessions</strong>: Shows how multiple IConnectSessions can be used in one application.</li>
+	<li><strong>P2PDataMessagingTest</strong>: This is again applicable with Player 10.1 swc. This example shows how to publish data streams over p2p e.g. chat or whiteboard cursors. You need to enable p2pDataMessaging property in NodeConfiguration to have p2p data streams over a node.</li>
+	<li><strong>PeerToPeerRtmfp</strong>: Shows how to use P2P/RTMFP for audio/visual functionality.</li>
+	<li><strong>PrivateStreamTest</strong>: This example shows how to use private streaming for A/V streams in LCCS framework. One can send private streams to a user or to a group of users.
+			You need to set allowPrivateStreams property to true in StreamManager to use this feature.</li>
+    <li><strong>Recording</strong>: This example shows how you can use LCCS framework to record your sessions and play them back later. You need to set up your own developer server for storing recording and other infrastructure changes. Please refer to developer guide, our APIs and release notes for more details on recording and playback.</li>            
+    <li><strong>ScreenShareExample</strong>: This example shows how you can use LCCS ScreenSharePublisher to share the screen with ScreenShareSubscriber.</li>
+    <li><strong>ScreenShareExampleSpark</strong>: This example shows how you can use LCCS ScreenSharePublisher to share the screen with ScreenShareSubscriber using components built with spark.</li>
+    <li><strong>ScreenShareFlashOnlyExample</strong>: This example shows how you can use LCCS ScreenSharePublisher to share the screen with ScreenShareSubscriber in flash only mode (removing all the heavy flex mx components).</li>
+	<li><strong>SDKNavigatorExample</strong>: This example shows the use of Chat and WhiteBoard in our SDK Navigator App. The SampleApp tab in SDKNavigator uses this source.</li>
+	<li><strong>Server2Server</strong>:  List of examples demostrate server to server APIs in action and how to receive LCCS real time events. (each example has readme.txt in the same directory)
+		<ul>
+			<li>Blackjack_Python: A Simple Blackjack game written in Python for the server with flash client written in Flex.</li>
+			<li>ModeratedChat_PHP: A chat filter written in PHP for the server with flash client written in Flex.</li>
+			<li>BlazeDSGateway_JAVA: A Java library for BlazeDS server demonstrate interaction with LCCS server with flash client written in Flex.</li>
+			<li>DevConsole_RubyOnRails: LCCS Server console demonstrates interaction with LCCS server with Ruby on Rails framework. </li>
+			<li>S2SGateway_ColdFusion: A ColdFusion request/response example demonstrates interaction with LCCS server.</li>
+		</ul>
+	</li>
+	<li><strong>Shared Collection</strong>: Shows how to use a SharedCollection model for having  synchronized lists and datagrids. In this case, we are using a synchronized datagrid to add, remove, edit items, and any newly arrived user can see the updated list.</li>
+	<li><strong>SharedModel</strong>: A better user interface showing several pod types as well as a standard log in mechanism.</li>
+	<li><strong>SimpleChat</strong>: Shows how this shared model can be made easily bindable for MXML.</li>
+	<li><strong>WebCamera</strong>: Demonstrates how the camera component can be used with a publisher and a number of subscribers. The publisher has a big view while subscribers have a small view. A shared property is used to pass the stream to the publisher's user interface. Every user is provided with play and pause handlers.</li>
+	<li><strong>WhiteBoardCustomShapes</strong>: This example shows how you can use Whiteboard to create your own custom shapes and extend the white board. An example of Triangle shape is created in the example.</li>
+	<li><strong>WhiteBoardModel</strong>: The example demonstrates how to a manipulate the WhiteBoardModel and access shapes programmatically.</li>
+	<li><strong>YahooMaps</strong>: A working application using ActionScript 3 components that leverages Yahoo Maps.</li>
+    <li><strong>ZoomLayout</strong>: Builds a custom webcam layout using WebCamSubscriber. When a user hovers over a particular webcam view, it expands. Other views remain minimized.</li>
+
+</ul>
+</div>
+
+</body>
+</html>

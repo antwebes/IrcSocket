@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?> 
+
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" 
+				xmlns:rtc="http://ns.adobe.com/rtc"
+				
+				>    
+	<mx:Script>
+		<![CDATA[
+			import com.adobe.rtc.collaboration.ScreenShareSubscriberComplex;
+			import com.adobe.rtc.events.CollectionNodeEvent;
+			import com.adobe.rtc.events.ScreenShareEvent;
+			import com.adobe.rtc.events.StreamEvent;
+			
+			import mx.events.CollectionEvent;
+			
+			/**********************************************************
+			 * ADOBE SYSTEMS INCORPORATED
+			 * Copyright [first year code created] Adobe Systems Incorporated
+			 * All Rights Reserved.
+			 * NOTICE: Adobe permits you to use, modify, and distribute this file in accordance with the 
+			 * terms of the Adobe license agreement accompanying it. ?If you have received this file from a 
+			 * source other than Adobe, then your use, modification, or distribution of it requires the prior 
+			 * written permission of Adobe.
+			 * *********************************/
+			// This is the upload part...
+			
+			//[Embed (source = 'cursor.png')]
+			//protected var CursorShareClass:Class;
+			private var sss:ScreenShareSubscriberComplex;
+			
+			private function init():void{
+				sss = new ScreenShareSubscriberComplex();
+				sss.addEventListener(ScreenShareEvent.SCREEN_SHARE_STARTED, onScreenShareStarted);
+				sss.addEventListener(StreamEvent.STREAM_DELETE, onStreamDelete);
+				sss.connectSession = cSession;
+				sss.width = displayArea.width;
+				sss.height = displayArea.height;
+				sss.x = 0;
+				sss.y = 0;
+				displayArea.addChild(sss);
+				
+				
+				
+				//var _cursor:DisplayObject = DisplayObject(new CursorShareClass);
+				//displayArea.addChild(_cursor);
+				
+				//				var sss:ScreenShareSubscriberSprite = new ScreenShareSubscriberSprite();
+				//				sss.connectSession = cSession;
+				//				sss.graphics.drawRect(0, 0, displayArea.width, displayArea.height);
+				//				displayArea.rawChildren.addChild( sss );
+				
+				
+			}
+			
+			private function onScreenShareStarted(p_evt:ScreenShareEvent):void {
+				sss.requestControlling();
+			}
+			private function onStreamReceived(p_evt:StreamEvent):void {
+				sss.requestControlling();
+			}
+			
+			private function onStreamDelete(p_evt:StreamEvent):void {
+				sss.stopControlling();
+			}
+		]]>
+	</mx:Script>
+	<rtc:AdobeHSAuthenticator id="auth"  userName="Your Username" password="Your password"/>
+	<rtc:ConnectSessionContainer id="cSession" authenticator="{auth}" width="100%" height="100%" 
+									 roomURL="Your RoomUrl"  backgroundAlpha="0" >	
+		<mx:HBox width="100%" height="100%" id="displayArea" creationComplete="init()"/>
+	</rtc:ConnectSessionContainer>  
+	
+</mx:Application>

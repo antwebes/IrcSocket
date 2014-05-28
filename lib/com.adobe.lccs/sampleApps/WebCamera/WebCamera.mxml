@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" 
+				xmlns:rtc="http://ns.adobe.com/rtc">
+	<mx:Script>
+		<![CDATA[
+			import com.adobe.rtc.sharedManagers.descriptors.UserDescriptor;
+			import com.adobe.rtc.messaging.UserRoles;
+			import com.adobe.rtc.events.ConnectSessionEvent;
+			import mx.controls.Button;
+			import com.adobe.coreUI.controls.CameraUserBar;
+			import mx.core.UITextField;
+			import mx.controls.LinkButton;
+			import com.adobe.rtc.events.SharedPropertyEvent;
+			import com.adobe.rtc.sharedModel.SharedProperty;
+			import com.adobe.rtc.collaboration.WebcamSubscriber;
+			import mx.containers.VBox;
+			import com.adobe.rtc.events.UserEvent;
+			import com.adobe.rtc.sharedManagers.StreamManager ;
+			import com.adobe.rtc.sharedManagers.descriptors.StreamDescriptor ;
+				
+				private var currentSubscriber:WebcamSubscriber ;
+				private var sharedProperty:SharedProperty ;
+				
+				/**********************************************************
+				 * This example shows how the camera component can be used with a publisher and a 
+				 * number of subscribers. The publisher has a big view while subscribers have a small view.
+				 * A shared property is used to pass the stream to the publisher's user interface.
+				 * Every user is provided with play and pause handlers.
+				 * *********************************/
+				 
+				 /**********************************************************
+				  * ADOBE SYSTEMS INCORPORATED
+				  * Copyright [2007-2010] Adobe Systems Incorporated
+				  * All Rights Reserved.
+				  * NOTICE: Adobe permits you to use, modify, and distribute this file in accordance with the 
+				  * terms of the Adobe license agreement accompanying it.If you have received this file from a 
+				  * source other than Adobe, then your use, modification, or distribution of it requires the prior 
+				  * written permission of Adobe.
+	  			  * *********************************/
+				 
+				private function onCreationComplete():void
+				{
+					cSession.roomManager.autoPromote = true ;
+					cSession.roomManager.guestsHaveToKnock = false ;
+					
+					sharedProperty = new SharedProperty();
+					sharedProperty.isSessionDependent = true ;
+					sharedProperty.sharedID = "webcamShare2" ;
+					sharedProperty.connectSession = cSession ;
+					sharedProperty.subscribe();
+					sharedProperty.addEventListener(SharedPropertyEvent.CHANGE,onChange);
+					cSession.userManager.addEventListener(UserEvent.USER_REMOVE,onUserRemove)
+				}
+				
+				/**
+		 		* @private
+		 		*/
+				protected function onUserRemove(p_event:UserEvent):void
+				{
+					if ( sharedProperty.value && p_event.userDescriptor.userID == sharedProperty.value[0]) {
+						sharedProperty.value = [] ;
+					}
+				}
+				
+				/**************
+				 * When the main big stream changes, all users can view it via the sharedProperty.
+				 * 
+				 *********************/
+				private function onChange(p_evt:SharedPropertyEvent):void
+				{
+					if ( currentSubscriber != null ) {
+						clickedContainer.removeChild(currentSubscriber);
+						currentSubscriber.close();
+						currentSubscriber = null ;
+					}
+					
+					if ( sharedProperty.value == null || sharedProperty.value.length == 0 ) {
+						return ;
+					}
+						
+						
+					currentSubscriber = new WebcamSubscriber();
+					currentSubscriber.connectSession = cSession ;
+					currentSubscriber.subscribe();
+					currentSubscriber.webcamPublisher = webCamPub ;
+					currentSubscriber.publisherIDs = sharedProperty.value ;
+					currentSubscriber.addEventListener(UserEvent.USER_BOOTED,onCleared);
+					currentSubscriber.addEventListener(UserEvent.STREAM_CHANGE,onCameraPause);
+					clickedContainer.addChild(currentSubscriber);
+					invalidateDisplayList();
+					
+				}
+				
+				/************************
+				 * If the big image is stopped, clear it.
+				 * 
+				 ********/
+				private function onCleared(p_evt:UserEvent):void
+				{
+					if ( cSession.userManager.myUserRole == UserRoles.OWNER ) {
+						sharedProperty.value = [] ;
+					}
+				}
+				
+				/***********
+				 * Clicking on the small image below makes it large.
+				 *****/
+				private function onClick(p_evt:MouseEvent):void
+				{
+					
+					if ( (p_evt.currentTarget is WebcamSubscriber) &&  !(p_evt.target.parent is CameraUserBar)) {
+						sharedProperty.value = (p_evt.currentTarget as WebcamSubscriber).publisherIDs;
+					}
+				}
+				
+				
+				override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+				{
+					super.updateDisplayList(unscaledWidth,unscaledHeight);
+					
+					if ( currentSubscriber ) {
+						currentSubscriber.percentWidth = 100 ;
+						currentSubscriber.percentHeight = 100 ;
+					}
+				}
+				
+				/****
+				 * Handler for a user stopping the camera.
+				 */
+				private function onBooted(p_evt:UserEvent):void
+				{
+					if ( (p_evt.currentTarget is  WebcamSubscriber) && (p_evt.userDescriptor.userID == cSession.userManager.myUserID || cSession.userManager.myUserRole == UserRoles.OWNER)) {
+						webCamPub.stop();
+						
+						if ( (p_evt.currentTarget.parent as VBox).getChildAt(1) is Button ){
+							((p_evt.currentTarget.parent as VBox).getChildAt(1) as Button).label = "Start" ;
+						}
+						
+						if ( sharedProperty.value && (sharedProperty.value as Array)[0] == p_evt.userDescriptor.userID ) {
+							sharedProperty.value = [] ;
+						}
+					}
+				}
+				
+				/**
+			 	* Handler for a user pausing the camera.
+			 	*/
+				protected function onCameraPause(p_evt:UserEvent):void
+				{
+					var userStreams:Array = cSession.streamManager.getStreamsForPublisher(p_evt.userDescriptor.userID,StreamManager.CAMERA_STREAM);
+					
+					if (userStreams.length == 0) {
+						trace("onCameraPause: no userStreams");
+						return;
+					}
+					
+					for (var i:int = 0; i< userStreams.length ; i++ ) {
+						if (userStreams[i].type == StreamManager.CAMERA_STREAM ) {
+							break;
+						}
+					}
+					
+					var streamDescriptor:StreamDescriptor = userStreams[i];
+					if ( streamDescriptor.streamPublisherID == cSession.userManager.myUserID ) {
+						cSession.streamManager.pauseStream(StreamManager.CAMERA_STREAM,!streamDescriptor.pause,streamDescriptor.streamPublisherID);
+					}
+				}
+				
+				/*****
+				 * Handler for the stop and start buttons.
+				 *******/
+				private function onBtnClick(p_evt:MouseEvent):void
+				{
+					if ( p_evt.currentTarget.label == "Start" ) {
+						webCamPub.publish();
+						p_evt.currentTarget.label = "Stop" ;
+					}else if (p_evt.currentTarget.label == "Stop" ){
+						webCamPub.stop();
+						p_evt.currentTarget.label = "Start" ;
+					}
+				}
+					
+		]]>
+	</mx:Script>
+	
+	<!-- 
+		You would likely use external authentication here for a deployed application; 
+		you would certainly not hard code Adobe IDs here.
+	-->
+	<rtc:AdobeHSAuthenticator 
+		id="auth" 
+		userName="Your Username" 
+		password="Your password"  />
+	<rtc:ConnectSessionContainer id="cSession" authenticator="{auth}" width="100%"
+		 height="100%" roomURL="Your RoomUrl" >
+		 <mx:Panel title="Webcam Example" width="100%" height="100%" 
+       			 paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10" creationComplete="onCreationComplete()">
+  			<rtc:WebcamPublisher id="webCamPub" width="10" height="5" resolutionFactor="5"/>
+  			<mx:VBox width="100%" height="100%" id="clickedContainer"/>
+	        <mx:HBox horizontalGap="10" verticalGap="15" paddingLeft="10" paddingTop="10" paddingBottom="10" paddingRight="10" width="100%" height="25%">
+	            <mx:Repeater id="rp" dataProvider="{cSession.userManager.userCollection}" width="100%" height="100%" >
+	           		<mx:VBox width="100%" height="15%" horizontalAlign="center" horizontalGap="5">
+	           			 <rtc:WebcamSubscriber webcamPublisher="{webCamPub}" width="100%" height="100%" publisherIDs="{[(rp.currentItem as UserDescriptor).userID]}" click="onClick(event)" userBooted="onBooted(event)" streamChange="onCameraPause(event)"/>
+	           			 <mx:Button  label="Start"  click="onBtnClick(event)"  visible="{(rp.currentItem as UserDescriptor).userID==cSession.userManager.myUserID}" />
+	           		</mx:VBox>
+	            </mx:Repeater>    
+	        </mx:HBox>
+    </mx:Panel>
+	</rtc:ConnectSessionContainer>
+</mx:Application>
